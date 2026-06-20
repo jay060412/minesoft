@@ -33,7 +33,7 @@ export const Hero = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => {
                 navigator.clipboard.writeText("minesoft.mcv.kr");
-                alert("서버 주소가 복사되었습니다: minesoft.mcv.kr");
+                window.showToast?.("서버 주소가 클립보드에 복사되었습니다! (minesoft.mcv.kr)");
               }}
               className="group relative px-8 py-4 bg-linear-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg glow-blue hover:glow-blue-hover transition-all flex items-center gap-2 overflow-hidden"
             >

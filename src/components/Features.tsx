@@ -115,10 +115,10 @@ export const Features = () => {
                     key={currentIndex}
                     src={IMAGES[currentIndex]}
                     alt="Server Gameplay"
-                    initial={{ x: "100%", opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: "-100%", opacity: 0 }}
-                    transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="absolute inset-0 w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
@@ -150,14 +150,16 @@ export const Features = () => {
             
             {/* Decals */}
             <motion.div 
-              animate={{ y: [0, -15, 0] }}
+              animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-lg z-0" 
+              style={{ willChange: "transform", transform: "translate3d(0,0,0)" }}
+              className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-md z-0" 
             />
             <motion.div 
-              animate={{ y: [0, 20, 0] }}
+              animate={{ y: [0, 15, 0] }}
               transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-              className="absolute -bottom-10 -left-10 w-48 h-48 bg-secondary/10 rounded-full blur-xl z-0" 
+              style={{ willChange: "transform", transform: "translate3d(0,0,0)" }}
+              className="absolute -bottom-10 -left-10 w-48 h-48 bg-secondary/15 rounded-full blur-lg z-0" 
             />
           </motion.div>
         </div>

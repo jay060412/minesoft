@@ -1,116 +1,181 @@
-import { motion } from "motion/react";
-import { Users, MessagesSquare, Twitch, Youtube, Share2 } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { MessagesSquare, Tv, Youtube, ArrowRight, X, AlertCircle } from "lucide-react";
+import { ServerConfig } from "../config";
 
 export const Community = () => {
-  const announcements = [
-    { date: "2024.04.25", title: "시즌 3 대규모 업데이트 패치노트 안내", tag: "공지" },
-    { date: "2024.04.20", title: "주말 버닝 타임 및 경험치 2배 이벤트", tag: "이벤트" },
-    { date: "2024.04.15", title: "신규 관리자 모집 공고 (서포터 부문)", tag: "모집" },
+  const [isCreatorModalOpen, setIsCreatorModalOpen] = useState(false);
+
+  const customSocials = [
+    { 
+      icon: MessagesSquare, 
+      label: "공식 디스코드", 
+      desc: "마인소프트 유저들과 소통하고 공지사항, 파티 구인, 실시간 건의 및 고객 지원을 받을 수 있는 메인 소통 채널입니다.",
+      color: "text-[#5865F2]", 
+      bg: "bg-[#5865F2]/10", 
+      link: ServerConfig.links.discordInvite,
+      buttonText: "디스코드 입장하기",
+      isModalTrigger: false
+    },
+    { 
+      icon: Tv, 
+      label: "방송인 신청 안내", 
+      desc: "유튜브, 트위치, 치지직 등에서 방송하시는 크리에이터 분들을 위한 전용 방송인 신청은 공식 디스코드 채널을 통해 처리됩니다.",
+      color: "text-[#9146FF]", 
+      bg: "bg-[#9146FF]/10", 
+      link: "#",
+      buttonText: "신청 방법 확인하기",
+      isModalTrigger: true
+    },
+    { 
+      icon: Youtube, 
+      label: "유튜브 채널", 
+      desc: "스트리머 뿐둥재영의 공식 유튜브 채널입니다. 마인소프트 서버 콘텐츠 소개 및 다양한 마인크래프트 공략/리뷰 영상을 만나보세요.",
+      color: "text-[#FF0000]", 
+      bg: "bg-[#FF0000]/10", 
+      link: ServerConfig.links.youtube,
+      buttonText: "유튜브 시청하기",
+      isModalTrigger: false
+    },
   ];
 
   return (
-    <div className="pt-32 pb-24 min-h-screen">
+    <div className="pt-32 pb-24 min-h-screen flex flex-col justify-center">
       <div className="container mx-auto px-6">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto"
+          transition={{ duration: 0.6 }}
+          className="max-w-5xl mx-auto"
         >
+          {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-4">커뮤니티</h2>
-            <p className="text-gray-500">플레이어들과 소통하고 실시간 소식을 만나보세요.</p>
+            <h2 className="text-4xl font-black text-gray-950 mb-4 tracking-tight">커뮤니티</h2>
+            <p className="text-gray-500 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
+              마인소프트 플레이어들과 소통하고 공식 미디어 및 디스코드 채널에서 실시간 소식과 역할을 누려보세요.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
-            {[
-              { icon: MessagesSquare, label: "공식 디스코드", color: "text-[#5865F2]", bg: "bg-[#5865F2]/10", link: "https://discord.com/invite/VVgCW5d3JW" },
-              { icon: Twitch, label: "방송 지원", color: "text-[#9146FF]", bg: "bg-[#9146FF]/10", link: "#" },
-              { icon: Youtube, label: "유튜브 채널", color: "text-[#FF0000]", bg: "bg-[#FF0000]/10", link: "#" },
-            ].map((social, i) => (
-              <motion.a 
+          {/* Clean Three Columns Social Cards Grid */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {customSocials.map((social, i) => (
+              <motion.div 
                 key={i}
-                href={social.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="glass p-6 rounded-3xl flex flex-col items-center gap-4 transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -6 }}
+                className="bg-white rounded-[2rem] border border-gray-150 p-8 flex flex-col justify-between shadow-xs hover:shadow-lg transition-all"
               >
-                <div className={`w-12 h-12 rounded-2xl ${social.bg} flex items-center justify-center ${social.color}`}>
-                  <social.icon className="w-6 h-6" />
+                <div>
+                  <div className={`w-14 h-14 rounded-2xl ${social.bg} flex items-center justify-center ${social.color} mb-6`}>
+                    <social.icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{social.label}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                    {social.desc}
+                  </p>
                 </div>
-                <span className="font-bold text-gray-700">{social.label}</span>
-              </motion.a>
-            ))}
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="md:col-span-2">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <Share2 className="text-primary w-6 h-6" />
-                  <h3 className="text-2xl font-bold">최신 소식</h3>
-                </div>
-                <button className="text-sm font-bold text-primary">전체보기</button>
-              </div>
-
-              <div className="space-y-4">
-                {announcements.map((item, idx) => (
-                  <motion.div 
-                    key={idx}
-                    whileHover={{ x: 10 }}
-                    className="glass p-5 rounded-2xl flex items-center justify-between group cursor-pointer transition-all"
+                {social.isModalTrigger ? (
+                  <button 
+                    onClick={() => setIsCreatorModalOpen(true)}
+                    className="w-full py-3 px-5 rounded-2xl bg-slate-50 border border-slate-100/80 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all font-black text-xs text-slate-705 flex items-center justify-center gap-2 mt-auto cursor-pointer"
                   >
-                    <div className="flex items-center gap-4">
-                      <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase ${
-                        item.tag === '공지' ? 'bg-primary/10 text-primary' : 
-                        item.tag === '이벤트' ? 'bg-orange-500/10 text-orange-500' : 
-                        'bg-purple-500/10 text-purple-500'
-                      }`}>
-                        {item.tag}
-                      </span>
-                      <h4 className="font-bold text-gray-800 text-sm md:text-base">{item.title}</h4>
-                    </div>
-                    <span className="text-xs text-gray-400 font-medium">{item.date}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <div className="md:col-span-1">
-              <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-                <Users className="text-primary w-6 h-6" />
-                서버 현황
-              </h3>
-              <div className="glass p-6 rounded-3xl glow-blue space-y-6">
-                <div>
-                  <div className="flex justify-between text-sm font-bold mb-2">
-                    <span className="text-gray-500">오늘의 접속자</span>
-                    <span className="text-primary">842명</span>
-                  </div>
-                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="w-[84%] h-full bg-primary" />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-sm font-bold mb-2">
-                    <span className="text-gray-500">후원 달성도</span>
-                    <span className="text-secondary">92%</span>
-                  </div>
-                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="w-[92%] h-full bg-secondary" />
-                  </div>
-                </div>
-                <div className="pt-4 border-t border-white/20">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-400">최대 동접 기록</span>
-                    <span className="font-bold text-gray-700">1,241명</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    {social.buttonText}
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                ) : (
+                  <a 
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 px-5 rounded-2xl bg-slate-50 border border-slate-100/80 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all font-black text-xs text-gray-700 flex items-center justify-center gap-2 mt-auto"
+                  >
+                    {social.buttonText}
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                )}
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
+
+      {/* Creator Request Info Modal Popup */}
+      <AnimatePresence>
+        {isCreatorModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsCreatorModalOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+            />
+
+            {/* Content Card */}
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 30 }}
+              transition={{ type: "spring", stiffness: 320, damping: 28 }}
+              className="bg-white rounded-[2rem] max-w-md w-full p-8 shadow-2xl border border-gray-100 relative z-10 flex flex-col focus:outline-none"
+            >
+              <button 
+                onClick={() => setIsCreatorModalOpen(false)}
+                className="absolute top-6 right-6 p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors"
+                aria-label="닫기"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-[#9146FF]/10 text-[#9146FF] rounded-2xl flex items-center justify-center">
+                  <Tv className="w-6 h-6 animate-pulse" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-black text-gray-950">방송인 신청 안내</h3>
+                  <p className="text-xs text-gray-400">Creator Application Guide</p>
+                </div>
+              </div>
+
+              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-gray-600 text-sm leading-relaxed mb-8">
+                <p className="mb-4 font-semibold text-gray-800">
+                  📢 디스코드 방송인 신청 채널에서 상시 신청이 가능합니다!
+                </p>
+                <p className="text-xs text-gray-500 mb-4 leading-normal">
+                  유튜브, 치지직, 트위치 등 마인소프트 서버에서 성실하게 활동하시는 크리에이터 분들을 모집합니다. 특별 인게임 칭호와 고유 혜택을 제공받으실 수 있습니다.
+                </p>
+                <div className="flex items-start gap-2 text-xs bg-[#5865F2]/5 text-[#5865F2] p-3 rounded-xl border border-[#5865F2]/10 font-medium">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>공식 디스코드 서버 입장 뒤, 아래 <b>[#방송인-신청]</b> 채널 가이드를 확인하여 양식에 맞춰 접수해주시기 바랍니다.</span>
+                </div>
+              </div>
+
+              <div className="flex gap-3 justify-end">
+                <button 
+                  onClick={() => setIsCreatorModalOpen(false)}
+                  className="px-5 py-3 border border-gray-200 text-gray-500 rounded-xl text-xs font-bold hover:bg-slate-50 transition-colors"
+                >
+                  닫기
+                </button>
+                <a 
+                  href={ServerConfig.links.discordInvite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsCreatorModalOpen(false)}
+                  className="px-6 py-3 bg-[#5865F2] hover:bg-[#4752C4] text-white font-black rounded-xl text-xs shadow-md transition-all flex items-center gap-2"
+                >
+                  <MessagesSquare className="w-4 h-4" />
+                  디스코드 신청 채널 가기
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

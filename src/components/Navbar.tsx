@@ -17,6 +17,7 @@ export const Navbar = ({ currentView, setView }: { currentView: string, setView:
   const navItems = [
     { label: "소개", id: "home" },
     { label: "위키/도움말", id: "commands" },
+    { label: "후원 안내", id: "donate" },
     { label: "지원", id: "support" },
     { label: "커뮤니티", id: "community" }
   ];
@@ -63,7 +64,7 @@ export const Navbar = ({ currentView, setView }: { currentView: string, setView:
             <button 
               onClick={() => {
                 navigator.clipboard.writeText("minesoft.mcv.kr");
-                alert("서버 주소가 복사되었습니다: minesoft.mcv.kr");
+                window.showToast?.("서버 주소가 클립보드에 복사되었습니다! (minesoft.mcv.kr)");
               }}
               className="px-6 py-2.5 bg-linear-to-r from-primary to-secondary text-white text-sm font-bold rounded-xl glow-blue hover:scale-105 transition-all"
             >
@@ -106,7 +107,7 @@ export const Navbar = ({ currentView, setView }: { currentView: string, setView:
           <button 
             onClick={() => {
               navigator.clipboard.writeText("minesoft.mcv.kr");
-              alert("서버 주소가 복사되었습니다: minesoft.mcv.kr");
+              window.showToast?.("서버 주소가 클립보드에 복사되었습니다! (minesoft.mcv.kr)");
               setMobileMenuOpen(false);
             }}
             className="w-full mt-2 py-4 bg-primary text-white font-bold rounded-xl"

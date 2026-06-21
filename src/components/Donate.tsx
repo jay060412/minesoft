@@ -81,7 +81,7 @@ export const Donate = () => {
       primaryPerk: "직접 주문제작하는 RGB 그라데이션 고유 전용 태그 평생 채팅 적용",
       benefits: [
         { text: "원하는 글자 수 및 RGB 그라데이션 적용 커스텀 칭호 평생 활성화", isStrong: true },
-        { text: "최초 1회 전면 무료 세팅 제공 및 이후 변경 시 건당 4,000원의 교체 수수료 발생", isStrong: true },
+        { text: "최초 3회 전면 무료 세팅 제공 및 이후 변경 시 건당 4,000원의 교체 수수료 발생", isStrong: true },
         { text: "⚠️ [약관] 서버 운영자/관리자로 타 유저를 혼동하게 만드는 칭호 문구 장착 불가", isStrong: true },
         { text: "⚠️ [약관] 서버 채팅 규정을 위반하는 욕설, 비방, 외설 문구 적용 불가", isStrong: true },
         { text: "⚠️ VIP, MVP 등의 다른 특별 등급 권한(비행, 대기열 우회 등) 없이 오직 커스텀 태그만 단독 지급", isStrong: true }
